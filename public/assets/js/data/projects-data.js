@@ -689,7 +689,7 @@
         { abbr: "EL", name: "Elementor Pro", role: "Page Builder" },
         { abbr: "PHP", name: "PHP 8", role: "Backend Logic" },
         { abbr: "SQL", name: "MySQL", role: "Database" },
-        { abbr: "MC", name: "MailChimp", role: "siEmail Marketing" },
+        { abbr: "MC", name: "MailChimp", role: "Email Marketing" },
       ],
       timeline: [
         {
@@ -709,7 +709,7 @@
         },
         {
           phase: "Phase 04",
-          heading: "siEmail Flows & Launch",
+          heading: "Email Flows & Launch",
           text: "Set up MailChimp automation sequences for trial and paid members, tested the full funnel and launched with an ad campaign.",
         },
       ],

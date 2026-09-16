@@ -1809,6 +1809,7 @@ const PAGE_HTML = `<div id="mobile-nav-root" data-mobile-nav-root></div>
                         placeholder="Your full name..."
                         required
                         aria-required="true"
+                        autocomplete="name"
                       />
                       <span
                         class="cf-error"
@@ -1818,25 +1819,26 @@ const PAGE_HTML = `<div id="mobile-nav-root" data-mobile-nav-root></div>
                     </div>
                   </div>
 
-                  <div class="cf-step reveal" data-field="siEmail">
+                  <div class="cf-step reveal" data-field="email">
                     <span class="cf-step-badge" aria-hidden="true">02</span>
                     <div class="cf-step-body">
-                      <label for="siEmail" class="cf-step-label"
-                        >What is your siEmail address?
+                      <label for="email" class="cf-step-label"
+                        >What is your email address?
                         <span class="cf-req">*</span></label
                       >
                       <input
-                        type="siEmail"
-                        name="siEmail"
-                        id="siEmail"
+                        type="email"
+                        name="email"
+                        id="email"
                         class="cf-line-input"
-                        placeholder="Please enter your siEmail address..."
+                        placeholder="Please enter your email address..."
                         required
                         aria-required="true"
+                        autocomplete="email"
                       />
                       <span
                         class="cf-error"
-                        id="siEmail-error"
+                        id="email-error"
                         role="alert"
                       ></span>
                     </div>

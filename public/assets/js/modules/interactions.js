@@ -341,17 +341,17 @@
           r = e(".form-success");
         if (!a) return;
         const s = a.querySelector("#name"),
-          i = a.querySelector("#siEmail"),
+          i = a.querySelector("#email"),
           c = a.querySelector("#subject"),
           l = a.querySelector("#message"),
           d = a.querySelector("#consent"),
           u = a.querySelector('[data-field="name"]'),
-          m = a.querySelector('[data-field="siEmail"]'),
+          m = a.querySelector('[data-field="email"]'),
           h = a.querySelector('[data-field="subject"]'),
           f = a.querySelector('[data-field="message"]'),
           p = a.querySelector('[data-field="consent"]'),
           g = a.querySelector("#name-error"),
-          v = a.querySelector("#siEmail-error"),
+          v = a.querySelector("#email-error"),
           y = a.querySelector("#subject-error"),
           w = a.querySelector("#message-error"),
           b = a.querySelector("#consent-error"),
@@ -386,8 +386,8 @@
             t
               ? x.test(t)
                 ? (I(m, v), !0)
-                : (e && S(m, v, "Please enter a valid siEmail address."), !1)
-              : (e && S(m, v, "Please enter your siEmail address."), !1)
+                : (e && S(m, v, "Please enter a valid email address."), !1)
+              : (e && S(m, v, "Please enter your email address."), !1)
           );
         }
         function L(e) {
@@ -417,6 +417,12 @@
               !1)
             : (I(p, b), !0);
         }
+        function showFormError(msg) {
+          if (b) {
+            S(p, b, msg || "Could not send your message. Please try again.");
+            p && p.scrollIntoView({ behavior: "smooth", block: "center" });
+          }
+        }
         (o(s, "input", () => C(u?.classList.contains("is-invalid"))),
           o(s, "blur", () => C(!0)),
           o(i, "input", () => k(m?.classList.contains("is-invalid"))),
@@ -434,7 +440,7 @@
                 L(!0));
             });
           }),
-          o(a, "submit", (e) => {
+          o(a, "submit", async (e) => {
             if (
               (e.preventDefault(),
               ![C(!0), k(!0), L(!0), A(!0), T(!0)].every(Boolean))
@@ -444,27 +450,47 @@
                 e && e.scrollIntoView({ behavior: "smooth", block: "center" })
               );
             }
-            const t = a.querySelector(".cf-submit"),
-              o = t?.querySelector("span"),
-              s = o?.textContent;
-            (o && (o.textContent = "Sending..."),
-              t && (t.disabled = !0),
-              setTimeout(() => {
-                (o && (o.textContent = s || "Submit"),
-                  t && (t.disabled = !1),
-                  a.reset(),
-                  E.forEach((e) => e.classList.remove("active")),
-                  [u, m, h, f].forEach((e) => {
-                    e && e.classList.remove("is-filled", "is-invalid");
-                  }),
-                  p && p.classList.remove("is-invalid"),
-                  r &&
-                    (r.classList.add("show"),
-                    setTimeout(
-                      () => r.classList.remove("show"),
-                      n.formSuccessDur,
-                    )));
-              }, n.formSubmitDelay));
+            const submitBtn = a.querySelector(".cf-submit"),
+              label = submitBtn?.querySelector("span"),
+              prevLabel = label?.textContent;
+            (label && (label.textContent = "Sending..."),
+              submitBtn && (submitBtn.disabled = !0),
+              I(p, b));
+            try {
+              const res = await fetch("/api/contact", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                  name: (s?.value || "").trim(),
+                  email: (i?.value || "").trim(),
+                  subject: (c?.value || "").trim(),
+                  message: (l?.value || "").trim(),
+                  consent: !!d?.checked,
+                }),
+              });
+              const data = await res.json().catch(() => ({}));
+              if (!res.ok) {
+                showFormError(data.error || "Could not send your message.");
+                return;
+              }
+              (a.reset(),
+                E.forEach((e) => e.classList.remove("active")),
+                [u, m, h, f].forEach((e) => {
+                  e && e.classList.remove("is-filled", "is-invalid");
+                }),
+                p && p.classList.remove("is-invalid"),
+                r &&
+                  (r.classList.add("show"),
+                  setTimeout(
+                    () => r.classList.remove("show"),
+                    n.formSuccessDur,
+                  )));
+            } catch (_) {
+              showFormError("Network error. Please check your connection.");
+            } finally {
+              (label && (label.textContent = prevLabel || "Submit"),
+                submitBtn && (submitBtn.disabled = !1));
+            }
           }));
       },
       initContactHero: function () {

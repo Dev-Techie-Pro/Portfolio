@@ -196,7 +196,7 @@ const PAGE_HTML = `<div id="mobile-nav-root" data-mobile-nav-root></div>
               </li>
             </ul>
           </div>
-          <div class="contact-form-col" id="send-message"
+          <div class="contact-form-col" id="send-message">
             <h2 class="cf-heading reveal">Send Me A Message</h2>
             <div class="cf-underline reveal"></div>
             <form id="contactForm" novalidate aria-label="Contact form" class="cf-steps" action="javascript:void(0);" method="post">
@@ -205,17 +205,17 @@ const PAGE_HTML = `<div id="mobile-nav-root" data-mobile-nav-root></div>
                 <span class="cf-step-badge" aria-hidden="true">01</span>
                 <div class="cf-step-body">
                   <label for="name" class="cf-step-label">What is your full name? <span class="cf-req">*</span></label>
-                  <input type="text" name="name" id="name" class="cf-line-input" placeholder="Your full name..." required aria-required="true" />
+                  <input type="text" name="name" id="name" class="cf-line-input" placeholder="Your full name..." required aria-required="true" autocomplete="name" />
                   <span class="cf-error" id="name-error" role="alert"></span>
                 </div>
               </div>
 
-              <div class="cf-step reveal" data-field="siEmail">
+              <div class="cf-step reveal" data-field="email">
                 <span class="cf-step-badge" aria-hidden="true">02</span>
                 <div class="cf-step-body">
-                  <label for="siEmail" class="cf-step-label">What is your Email address? <span class="cf-req">*</span></label>
-                  <input type="siEmail" name="siEmail" id="siEmail" class="cf-line-input" placeholder="Please enter your Email address..." required aria-required="true" />
-                  <span class="cf-error" id="siEmail-error" role="alert"></span>
+                  <label for="email" class="cf-step-label">What is your email address? <span class="cf-req">*</span></label>
+                  <input type="email" name="email" id="email" class="cf-line-input" placeholder="Please enter your email address..." required aria-required="true" autocomplete="email" />
+                  <span class="cf-error" id="email-error" role="alert"></span>
                 </div>
               </div>
 
