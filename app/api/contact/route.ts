@@ -1,5 +1,6 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextRequest, NextResponse, after } from "next/server";
 import { getSiteId, getSupabaseAdmin } from "@/lib/supabase/admin";
+import { notifyAdminOfContact } from "@/lib/email/notify-admin";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/;
 const MAX_NAME = 120;
@@ -101,9 +102,22 @@ export async function POST(request: NextRequest) {
   try {
     const supabase = getSupabaseAdmin();
     const ip = clientIp(request);
+    const siteId = getSiteId();
+
+    const { data: maxRow } = await supabase
+      .from("contact_messages")
+      .select("legacy_id")
+      .eq("site_id", siteId)
+      .not("legacy_id", "is", null)
+      .order("legacy_id", { ascending: false })
+      .limit(1)
+      .maybeSingle();
+
+    const nextLegacyId = Number(maxRow?.legacy_id || 0) + 1;
 
     const { error } = await supabase.from("contact_messages").insert({
-      site_id: getSiteId(),
+      site_id: siteId,
+      legacy_id: nextLegacyId,
       sender_name: name,
       sender_email: email,
       subject,
@@ -120,6 +134,22 @@ export async function POST(request: NextRequest) {
         { status: 500 },
       );
     }
+
+    // Respond immediately after DB save; send emails after the response.
+    after(async () => {
+      const mail = await notifyAdminOfContact({
+        name,
+        email,
+        subject,
+        message,
+      });
+      if (!mail.sent) {
+        console.warn(
+          "[contact] Saved to DB but email notify failed:",
+          mail.reason,
+        );
+      }
+    });
 
     return NextResponse.json({ ok: true });
   } catch (err) {

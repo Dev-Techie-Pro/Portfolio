@@ -339,7 +339,8 @@
       initContactPage: function () {
         const a = document.getElementById("contactForm"),
           r = e(".form-success");
-        if (!a) return;
+        if (!a || a.dataset.contactInit === "1") return;
+        a.dataset.contactInit = "1";
         const s = a.querySelector("#name"),
           i = a.querySelector("#email"),
           c = a.querySelector("#subject"),
@@ -441,18 +442,20 @@
             });
           }),
           o(a, "submit", async (e) => {
-            if (
-              (e.preventDefault(),
-              ![C(!0), k(!0), L(!0), A(!0), T(!0)].every(Boolean))
-            ) {
-              const e = a.querySelector(".is-invalid");
+            e.preventDefault();
+            e.stopPropagation();
+            if (a.dataset.contactSubmitting === "1") return;
+            if (![C(!0), k(!0), L(!0), A(!0), T(!0)].every(Boolean)) {
+              const invalid = a.querySelector(".is-invalid");
               return void (
-                e && e.scrollIntoView({ behavior: "smooth", block: "center" })
+                invalid &&
+                invalid.scrollIntoView({ behavior: "smooth", block: "center" })
               );
             }
             const submitBtn = a.querySelector(".cf-submit"),
-              label = submitBtn?.querySelector("span"),
+              label = submitBtn?.querySelector("span:not(.icon)"),
               prevLabel = label?.textContent;
+            a.dataset.contactSubmitting = "1";
             (label && (label.textContent = "Sending..."),
               submitBtn && (submitBtn.disabled = !0),
               I(p, b));
@@ -474,9 +477,9 @@
                 return;
               }
               (a.reset(),
-                E.forEach((e) => e.classList.remove("active")),
-                [u, m, h, f].forEach((e) => {
-                  e && e.classList.remove("is-filled", "is-invalid");
+                E.forEach((pill) => pill.classList.remove("active")),
+                [u, m, h, f].forEach((step) => {
+                  step && step.classList.remove("is-filled", "is-invalid");
                 }),
                 p && p.classList.remove("is-invalid"),
                 r &&
@@ -488,6 +491,7 @@
             } catch (_) {
               showFormError("Network error. Please check your connection.");
             } finally {
+              delete a.dataset.contactSubmitting;
               (label && (label.textContent = prevLabel || "Submit"),
                 submitBtn && (submitBtn.disabled = !1));
             }

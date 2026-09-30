@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect } from "react";
+import { useEffect } from "react";
 import { usePathname } from "next/navigation";
 import { PAGE_BODY_CLASS, type PortfolioRoute } from "@/lib/portfolio/script-config";
 import { PortfolioScripts, waitForPortfolioScripts } from "./PortfolioScripts";
@@ -18,12 +18,6 @@ type PortfolioPageProps = {
 export function PortfolioPage({ route, children }: PortfolioPageProps) {
   const pathname = usePathname();
 
-  const runInit = useCallback(async () => {
-    await waitForPortfolioScripts(route);
-    resetPortfolioForNavigation();
-    initPortfolioPage(route);
-  }, [route]);
-
   useEffect(() => {
     const bodyClass = PAGE_BODY_CLASS[route];
     if (bodyClass) {
@@ -36,14 +30,27 @@ export function PortfolioPage({ route, children }: PortfolioPageProps) {
     };
   }, [route]);
 
+  // Single init path only — do not also call from PortfolioScripts onScriptsReady
+  // (that previously bound contact submit twice → duplicate DB inserts).
   useEffect(() => {
-    void runInit();
-  }, [pathname, runInit]);
+    let cancelled = false;
+
+    void (async () => {
+      await waitForPortfolioScripts(route);
+      if (cancelled) return;
+      resetPortfolioForNavigation();
+      initPortfolioPage(route);
+    })();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [pathname, route]);
 
   return (
     <>
       {children}
-      <PortfolioScripts route={route} onScriptsReady={() => void runInit()} />
+      <PortfolioScripts route={route} />
     </>
   );
 }

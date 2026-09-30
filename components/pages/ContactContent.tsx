@@ -199,7 +199,7 @@ const PAGE_HTML = `<div id="mobile-nav-root" data-mobile-nav-root></div>
           <div class="contact-form-col" id="send-message">
             <h2 class="cf-heading reveal">Send Me A Message</h2>
             <div class="cf-underline reveal"></div>
-            <form id="contactForm" novalidate aria-label="Contact form" class="cf-steps" action="javascript:void(0);" method="post">
+            <form id="contactForm" novalidate aria-label="Contact form" class="cf-steps" action="#" method="post">
 
               <div class="cf-step reveal" data-field="name">
                 <span class="cf-step-badge" aria-hidden="true">01</span>

@@ -1791,7 +1791,7 @@ const PAGE_HTML = `<div id="mobile-nav-root" data-mobile-nav-root></div>
                   novalidate
                   aria-label="Contact form"
                   class="cf-steps"
-                  action="javascript:void(0);"
+                  action="#"
                   method="post"
                 >
                   <div class="cf-step reveal" data-field="name">
