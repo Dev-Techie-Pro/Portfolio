@@ -68,6 +68,7 @@ export const PAGE_EXTRA_SCRIPTS: Record<PortfolioRoute, ScriptEntry[]> = {
     { type: "classic", src: "/assets/js/features/experience-cards.js", defer: true },
     { type: "classic", src: "/assets/js/data/projects-data.js", defer: true },
     { type: "classic", src: "/assets/js/features/highlights-scroll.js", defer: true },
+    { type: "classic", src: "/assets/js/data/blogs-loader.js", defer: true },
     { type: "classic", src: "/assets/js/data/blogs-data.js", defer: true },
     { type: "classic", src: "/assets/js/features/blog-faq.js", defer: true },
     ...SWIPER,
@@ -89,12 +90,14 @@ export const PAGE_EXTRA_SCRIPTS: Record<PortfolioRoute, ScriptEntry[]> = {
   blogs: [
     { type: "classic", src: "/assets/js/managers/index.js", defer: true },
     { type: "classic", src: "/assets/js/features/blogs-page.js", defer: true },
+    { type: "classic", src: "/assets/js/data/blogs-loader.js", defer: true },
     { type: "classic", src: "/assets/js/data/blogs-data.js", defer: true },
   ],
   "blog-details": [
     { type: "classic", src: "/assets/js/managers/index.js", defer: true },
     { type: "classic", src: "/assets/js/features/blog-engagement.js", defer: true },
     { type: "classic", src: "/assets/js/features/blogs-page.js", defer: true },
+    { type: "classic", src: "/assets/js/data/blogs-loader.js", defer: true },
     { type: "classic", src: "/assets/js/data/blogs-data.js", defer: true },
   ],
   testimonials: [

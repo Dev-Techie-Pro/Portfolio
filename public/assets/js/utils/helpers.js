@@ -84,8 +84,7 @@
         .filter(Boolean);
       if (segments.length >= 3 && segments[0] === "blogs") {
         const slug = segments[2].toLowerCase();
-        const blogs = window.Portfolio?.BLOGS;
-        if (blogs && Object.prototype.hasOwnProperty.call(blogs, slug)) {
+        if (/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug)) {
           return slug;
         }
       }

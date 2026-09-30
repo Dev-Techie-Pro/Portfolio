@@ -1,6 +1,13 @@
 .blog-page {
   background: var(--bg);
 }
+.blog-load-error {
+  grid-column: 1 / -1;
+  padding: 2rem;
+  text-align: center;
+  color: var(--gray);
+  font-size: 0.9rem;
+}
 .blogs-portrait-wrap {
   position: relative;
   width: 80%;
