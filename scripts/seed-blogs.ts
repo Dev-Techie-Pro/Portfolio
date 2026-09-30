@@ -49,6 +49,9 @@ const PORTFOLIO_BLOG_CATEGORIES: { key: string; label: string }[] = [
   { key: "designs-system", label: "Designs System" },
 ];
 
+type BlogCategoryRow = { key: string; legacy_id: number | null };
+type BlogPostIdRow = { id: string; legacy_id: number | null };
+
 async function ensureBlogCategories(
   supabase: ReturnType<typeof createClient>,
   siteId: string,
@@ -59,11 +62,9 @@ async function ensureBlogCategories(
     .eq("site_id", siteId)
     .is("deleted_at", null);
 
-  const keys = new Set((existing || []).map((r) => r.key));
-  let maxLegacy = Math.max(
-    0,
-    ...(existing || []).map((r) => Number(r.legacy_id || 0)),
-  );
+  const rows = (existing ?? []) as BlogCategoryRow[];
+  const keys = new Set(rows.map((r) => r.key));
+  let maxLegacy = Math.max(0, ...rows.map((r) => Number(r.legacy_id || 0)));
 
   for (const cat of PORTFOLIO_BLOG_CATEGORIES) {
     if (keys.has(cat.key)) continue;
@@ -128,13 +129,14 @@ async function main() {
       author: post.author,
     });
 
-    const { data: existing } = await supabase
+    const { data: existingPost } = await supabase
       .from("blog_posts")
       .select("id, legacy_id")
       .eq("site_id", siteId)
       .eq("slug", slug)
       .maybeSingle();
 
+    const existing = existingPost as BlogPostIdRow | null;
     const legacyId =
       existing?.legacy_id != null ? Number(existing.legacy_id) : ++legacy;
 
