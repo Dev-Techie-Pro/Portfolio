@@ -1523,7 +1523,7 @@ const PAGE_HTML = `<div id="mobile-nav-root" data-mobile-nav-root></div>
               >
                 <p>
                   Yes. I work with clients across the US, UK, Middle East, and
-                  South Asia. Communication happens via siEmail, video calls, and
+                  South Asia. Communication happens via Email, video calls, and
                   project management tools — with flexible scheduling to
                   accommodate different time zones.
                 </p>

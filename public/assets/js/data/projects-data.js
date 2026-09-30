@@ -655,7 +655,7 @@
         {
           icon: "shield",
           title: "WooCommerce Memberships",
-          desc: "Tiered access plans with automated billing, content gating and renewal siEmails.",
+          desc: "Tiered access plans with automated billing, content gating and renewal Emails.",
         },
         {
           icon: "activity",

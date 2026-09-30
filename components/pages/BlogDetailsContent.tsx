@@ -122,8 +122,8 @@ const PAGE_HTML = `<div id="mobile-nav-root" data-mobile-nav-root></div>
             <h3 class="bd-sidebar-title">Stay Updated</h3>
             <p class="bd-sidebar-text">Subscribe for new articles on web development and architecture.</p>
             <form class="bd-newsletter-form" id="bdNewsletterForm" novalidate>
-              <label class="u-sr-only" for="bdNewslettersiEmail">siEmail</label>
-              <input type="siEmail" id="bdNewslettersiEmail" class="bd-newsletter-input" placeholder="Your siEmail" required />
+              <label class="u-sr-only" for="bdNewslettersiEmail">Email</label>
+              <input type="Email" id="bdNewslettersiEmail" class="bd-newsletter-input" placeholder="Your Email" required />
               <button type="submit" class="faq-cta-btn">Subscribe</button>
             </form>
           </div>

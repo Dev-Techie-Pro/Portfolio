@@ -190,7 +190,7 @@ const PAGE_HTML = `<div id="mobile-nav-root" data-mobile-nav-root></div>
             <span>No spam. Unsubscribe anytime.</span>
           </div>
           <form class="blog-newsletter-form" id="blogNewsletterForm" novalidate>
-            <input type="siEmail" id="blogNewslettersiEmail" class="blog-newsletter-input" placeholder="Enter your siEmail" required />
+            <input type="Email" id="blogNewslettersiEmail" class="blog-newsletter-input" placeholder="Enter your Email" required />
             <button type="submit" class="si-btn si-btn-primary">
               Subscribe
               <span class="icon" data-icon="siSend"></span>

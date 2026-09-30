@@ -359,6 +359,10 @@
           window.scrollTo({ top, behavior: "smooth" });
         });
       });
+
+      if (window.Portfolio.BLOG_ENGAGEMENT?.init) {
+        window.Portfolio.BLOG_ENGAGEMENT.init(_post);
+      }
     }
 
     return { init, initDetail };

@@ -1594,6 +1594,82 @@ function _renderArticleBody(content, post) {
         </a>
       </div>
     </div>
+    <section
+      class="bd-engagement reveal"
+      id="bdEngagement"
+      data-post-id="${post.id}"
+      aria-labelledby="bdEngagementHeading"
+    >
+      <div class="bd-engagement-head">
+        <div>
+          <p class="section-label">Community</p>
+          <h2 class="bd-engagement-title" id="bdEngagementHeading">Comments &amp; likes</h2>
+          <p class="bd-engagement-sub">Share your thoughts on this article.</p>
+        </div>
+        <button
+          type="button"
+          class="bd-like-btn"
+          id="bdLikeBtn"
+          aria-pressed="false"
+          aria-label="Like this article"
+        >
+          <span class="icon" data-icon="siHeart"></span>
+          <span class="bd-like-count" id="bdLikeCount">0</span>
+        </button>
+      </div>
+      <form class="bd-comment-form" id="bdCommentForm" novalidate>
+        <div class="bd-comment-fields">
+          <div class="bd-comment-field">
+            <label class="bd-comment-label" for="bdCommentName">Name</label>
+            <input
+              type="text"
+              id="bdCommentName"
+              class="bd-comment-input"
+              name="name"
+              autocomplete="name"
+              placeholder="Your name"
+              required
+              maxlength="80"
+            />
+          </div>
+          <div class="bd-comment-field">
+            <label class="bd-comment-label" for="bdCommentEmail">Email <span class="bd-optional">(optional)</span></label>
+            <input
+              type="email"
+              id="bdCommentEmail"
+              class="bd-comment-input"
+              name="email"
+              autocomplete="email"
+              placeholder="you@example.com"
+              maxlength="254"
+            />
+          </div>
+        </div>
+        <div class="bd-comment-field bd-comment-field--full">
+          <label class="bd-comment-label" for="bdCommentMessage">Comment</label>
+          <textarea
+            id="bdCommentMessage"
+            class="bd-comment-textarea"
+            name="message"
+            rows="4"
+            placeholder="Write your comment…"
+            required
+            maxlength="4000"
+          ></textarea>
+        </div>
+        <p class="bd-comment-error" id="bdCommentError" role="alert" hidden></p>
+        <button type="submit" class="faq-cta-btn bd-comment-submit" id="bdCommentSubmit">
+          Post comment
+        </button>
+      </form>
+      <div class="bd-comments-wrap">
+        <h3 class="bd-comments-heading">
+          <span id="bdCommentCountLabel">0 comments</span>
+        </h3>
+        <ul class="bd-comment-list" id="bdCommentList" aria-live="polite"></ul>
+        <p class="bd-comments-empty" id="bdCommentsEmpty" hidden>No comments yet — be the first.</p>
+      </div>
+    </section>
     <nav class="bd-post-nav" id="bdPostNav" aria-label="Previous and next articles"></nav>`;
 
   return html;

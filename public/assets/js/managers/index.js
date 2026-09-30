@@ -418,7 +418,7 @@
         if (!form) return this;
         bind(form, "submit", (event) => {
           event.preventDefault();
-          const input = form.querySelector("input[type='siEmail']");
+          const input = form.querySelector("input[type='Email']");
           if (!input || !input.value.trim()) {
             input?.focus();
             return;
